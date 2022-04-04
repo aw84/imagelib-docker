@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  database:
+    image: postgres:latest
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - imagelib_network
+networks:
+  imagelib_network:
+    name: imagelib_network

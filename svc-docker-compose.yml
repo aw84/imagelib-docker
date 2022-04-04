@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  lib:
+    image: image-base
+    ports:
+      - 9000:8080
+    volumes:
+      - ./jars:/jars
+    env_file:
+      - ./imagelib.env
+    networks:
+      - imagelib_network
+  api:
+    image: image-base
+    ports:
+      - 9001:8080
+    volumes:
+      - ./jars:/jars
+    env_file:
+      - ./imageapi.env
+    networks:
+      - imagelib_network
+networks:
+  imagelib_network:
+    external:
+      name: imagelib_network
