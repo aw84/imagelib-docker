@@ -37,6 +37,11 @@ dc "down --remove-orphans" ${SVC_PROJECT_NM} ${SVC} \
 && dc "up -d" ${SVC_PROJECT_NM} ${SVC}
 }
 
+function list_svc {
+dc ps ${DB_PROJECT_NM} ${DB} \
+&& dc ps ${SVC_PROJECT_NM} ${SVC}
+}
+
 case "$1" in
     build)
         build
@@ -52,6 +57,9 @@ case "$1" in
         ;;
     reload)
         reload_svc
+        ;;
+    list)
+        list_svc
         ;;
     *)
         echo "Usage: $0 {up|down|reload}"
