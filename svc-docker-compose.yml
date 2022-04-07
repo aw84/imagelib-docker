@@ -13,7 +13,7 @@ services:
   config:
     image: image-base
     ports:
-      - 9001:8080
+      - 9001:8082
     volumes:
       - ./jars:/jars
       - ./config:/config
