@@ -7,7 +7,7 @@ services:
     volumes:
       - ./jars:/jars
     env_file:
-      - ./imagelib.env
+      - ./image-api.env
     networks:
       - imagelib_network
   config:
@@ -16,8 +16,9 @@ services:
       - 9001:8080
     volumes:
       - ./jars:/jars
+      - ./config:/config
     env_file:
-      - ./imageapi.env
+      - ./image-config-server.env
     networks:
       - imagelib_network
 networks:
