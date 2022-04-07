@@ -42,6 +42,18 @@ dc ps ${DB_PROJECT_NM} ${DB} \
 && dc ps ${SVC_PROJECT_NM} ${SVC}
 }
 
+function build_jar {
+(cd $1 && mvn clean package)
+}
+
+function build_jars {
+build_jar ../imagelib-config-server \
+&& build_jar ../imagelib-api \
+&& rm jars/* \
+&& cp ../{imagelib-config-server,imagelib-api}/target/*.jar jars/ \
+&& ls -al jars/
+}
+
 case "$1" in
     build)
         build
@@ -60,6 +72,9 @@ case "$1" in
         ;;
     list)
         list_svc
+        ;;
+    build_jars)
+        build_jars
         ;;
     *)
         echo "Usage: $0 {up|down|reload}"
