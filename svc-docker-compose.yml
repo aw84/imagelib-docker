@@ -16,7 +16,6 @@ services:
       - 9001:8082
     volumes:
       - ./jars:/jars
-      - ./config:/config
     env_file:
       - ./image-config-server.env
     networks:
