@@ -7,6 +7,8 @@ DB_PROJECT_NM=imgdb
 SVC_PROJECT_NM=imgsvc
 BASE_IMG_NAME=image-base
 
+export CONFIG_SERVER=http://localhost:9001
+
 function build {
     docker build -t ${BASE_IMG_NAME} -f base/Dockerfile ./base
 }
