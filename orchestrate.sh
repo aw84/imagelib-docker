@@ -17,6 +17,10 @@ function dc {
     docker-compose -p $2 -f $3 $1
 }
 
+function _curl {
+curl -s ${CONFIG_SERVER}${1} --header 'Content-Type: text/plain' --data-raw $2
+}
+
 function up {
 dc "up -d" ${DB_PROJECT_NM} ${DB} \
 && dc "up -d" ${SVC_PROJECT_NM} ${SVC}
@@ -56,6 +60,13 @@ build_jar ../imagelib-config-server \
 && ls -al jars/
 }
 
+function encrypt {
+_curl "/encrypt" $1
+}
+function decrypt {
+_curl "/decrypt" $1
+}
+
 case "$1" in
     build)
         build
@@ -77,6 +88,12 @@ case "$1" in
         ;;
     build_jars)
         build_jars
+        ;;
+    enc)
+        encrypt $2
+        ;;
+    dec)
+        decrypt $2
         ;;
     *)
         echo "Usage: $0 {up|down|reload}"
