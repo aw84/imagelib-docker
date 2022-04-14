@@ -3,6 +3,7 @@ services:
   api:
     depends_on:
       - "config"
+      - "discovery"
     image: image-base
     ports:
       - 9000:8080
@@ -24,6 +25,20 @@ services:
       - ENCRYPTION_KEY=${ABCX}
     env_file:
       - ./image-config-server.env
+    networks:
+      - imagelib_network
+  discovery:
+    depends_on:
+      - "config"
+    image: image-base
+    ports:
+      - 9002:8761
+    volumes:
+      - ./jars:/jars
+    environment:
+      - ENCRYPTION_KEY=${ABCX}
+    env_file:
+      - ./image-discovery.env
     networks:
       - imagelib_network
 networks:

@@ -49,14 +49,15 @@ dc ps ${DB_PROJECT_NM} ${DB} \
 }
 
 function build_jar {
-(cd $1 && mvn clean package)
+(cd $1 && mvn -Dspring.profiles.active=test clean package)
 }
 
 function build_jars {
 build_jar ../imagelib-config-server \
 && build_jar ../imagelib-api \
+&& build_jar ../imagelib-discovery \
 && rm jars/* \
-&& cp ../{imagelib-config-server,imagelib-api}/target/*.jar jars/ \
+&& cp ../imagelib-{config-server,api,discovery}/target/*.jar jars/ \
 && ls -al jars/
 }
 
