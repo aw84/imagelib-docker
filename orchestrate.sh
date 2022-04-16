@@ -56,7 +56,7 @@ function build_jars {
 build_jar ../imagelib-config-server \
 && build_jar ../imagelib-api \
 && build_jar ../imagelib-discovery \
-&& rm jars/* \
+&& rm jars/{api,config-server,discovery}-0.0.1-SNAPSHOT.jar \
 && cp ../imagelib-{config-server,api,discovery}/target/*.jar jars/ \
 && ls -al jars/
 }
