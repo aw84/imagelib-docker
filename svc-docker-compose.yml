@@ -41,6 +41,16 @@ services:
       - ./image-discovery.env
     networks:
       - imagelib_network
+  zipkin:
+    image: image-base
+    ports:
+      - 9003:9411
+    volumes:
+      - ./jars:/jars
+    env_file:
+      - ./image-zipkin.env
+    networks:
+      - imagelib_network
 networks:
   imagelib_network:
     external:
