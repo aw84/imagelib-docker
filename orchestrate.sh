@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-
+eval $(minikube -p minikube docker-env)
 DB=db-docker-compose.yml
 SVC=svc-docker-compose.yml
 DB_PROJECT_NM=imgdb
@@ -10,7 +10,7 @@ BASE_IMG_NAME=image-base
 export CONFIG_SERVER=http://localhost:9001
 
 function build {
-    docker build -t ${BASE_IMG_NAME} -f base/Dockerfile ./base
+    docker build -t awpms/${BASE_IMG_NAME} -f base/Dockerfile ./base
 }
 
 function dc {
@@ -19,6 +19,9 @@ function dc {
 
 function _curl {
 curl -s ${CONFIG_SERVER}${1} --header 'Content-Type: text/plain' --data-raw $2
+}
+function _curl_get {
+curl -s ${CONFIG_SERVER}${1}
 }
 
 function up {
@@ -67,7 +70,9 @@ _curl "/encrypt" $1
 function decrypt {
 _curl "/decrypt" $1
 }
-
+function get_config {
+_curl_get $1
+}
 case "$1" in
     build)
         build
@@ -95,6 +100,9 @@ case "$1" in
         ;;
     dec)
         decrypt $2
+        ;;
+    get_config)
+        get_config $2
         ;;
     *)
         echo "Usage: $0 {up|down|reload}"
