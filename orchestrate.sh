@@ -56,11 +56,13 @@ function build_jar {
 }
 
 function build_jars {
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 build_jar ../imagelib-config-server \
 && build_jar ../imagelib-api \
 && build_jar ../imagelib-discovery \
-&& rm jars/{api,config-server,discovery}-0.0.1-SNAPSHOT.jar \
-&& cp ../imagelib-{config-server,api,discovery}/target/*.jar jars/ \
+&& build_jar ../imagelib-frontend \
+&& rm jars/{api,config-server,discovery,frontend}-0.0.1-SNAPSHOT.jar \
+&& cp -v ../imagelib-{config-server,api,discovery,frontend}/target/*.jar jars/ \
 && ls -al jars/
 }
 
